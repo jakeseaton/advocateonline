@@ -1,14 +1,13 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
-from .models import Article, Content, Issue , Subscriber, Donation# '.' signifies the current directory
+from .models import  Subscriber, Donation# '.' signifies the current directory
 from collections import OrderedDict
 import json
 import stripe
 from django.conf import settings
 from datetime import datetime
 from pytz import timezone    
-
-
+from magazine import views
 
 def stripeSubmit(request):
 	# Get the credit card details submitted by the form
@@ -36,7 +35,7 @@ def stripeSubmit(request):
 			time = getEasternTimeZoneString()
 		)
 
-		return subscribe(request)
+		return views.subscribe(request)
 	except stripe.CardError, e:
 	  # The card has been declined
 	  pass
