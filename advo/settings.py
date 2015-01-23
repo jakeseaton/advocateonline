@@ -42,8 +42,25 @@ INSTALLED_APPS = (
     'south',
     'magazine',
     'payments',
-    'django_social_share'
+    'django_social_share',
+    'django.contrib.redirects',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'mezzanine.boot',
+    'mezzanine.conf',
+    'mezzanine.core',
+    'mezzanine.generic',
+    'mezzanine.blog',
+    'mezzanine.forms',
+    'mezzanine.pages',
+    'mezzanine.galleries',
+    'mezzanine.twitter'
+
 )
+
+PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
+PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,7 +68,27 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   
+)
+MIDDLEWARE_CLASSES = (
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "mezzanine.core.middleware.UpdateCacheMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "mezzanine.core.request.CurrentRequestMiddleware",
+    "mezzanine.core.middleware.RedirectFallbackMiddleware",
+    "mezzanine.core.middleware.TemplateForDeviceMiddleware",
+    "mezzanine.core.middleware.TemplateForHostMiddleware",
+    "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
+    "mezzanine.core.middleware.SitePermissionMiddleware",
+    # Uncomment the following if using any of the SSL settings:
+    # "mezzanine.core.middleware.SSLRedirectMiddleware",
+    "mezzanine.pages.middleware.PageMiddleware",
+    "mezzanine.core.middleware.FetchFromCacheMiddleware",
 )
 
 ROOT_URLCONF = 'advo.urls'
@@ -100,11 +137,18 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 
+
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.request',
-    #http://stackoverflow.com/questions/3756841/django-media-url-blank    
-    'django.core.context_processors.media',
+    "django.contrib.auth.context_processors.auth",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.static",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+    "django.core.context_processors.tz",
+    "mezzanine.conf.context_processors.settings",
+    "mezzanine.pages.context_processors.page",
 )
 
 AJAX_LOOKUP_CHANNELS = {
@@ -119,3 +163,19 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+
+
+
+
+
+
+
+
+
+try:
+    from mezzanine.utils.conf import set_dynamic_settings
+except ImportError:
+    pass
+else:
+    set_dynamic_settings(globals())    
