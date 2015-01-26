@@ -4,6 +4,18 @@
 <div class="container">
 	<h1 class="header">S H O P</h1>
 
-	<h2 class="subheader">C O M I N G &ensp; S O O N !</h2>
-	<p class = "text"> Check back within the next few weeks for our updated shop to order apparel, back issues, and other merchandise. Hurry back! </p>
+	<h2 class="subheader">Hey you! Buy some crap!</h2>
+	<p class = "text"> We have some stuff you can buy, likewise there are things which you can purchase. </p>
+
+	<form style="text-align: center;" action="/stripeSubmit" method="post" id="payment-form">{% csrf_token %} 
+		<table border="0">
+			<tbody>
+				<tr><td style="text-align: left;"> </td></tr>
+				{% for value in data.items %}
+				<tr><td> {{ key }} </td></tr>>
+				{% endfor %} 
+					<tr><td style="text-align: left;"></td></tr> <tr><td style="text-align: left;">  
+				
+            {% include 'paymentData.html' with page="Subscribe" only  %}
+ 	</form>
 {% endblock %}

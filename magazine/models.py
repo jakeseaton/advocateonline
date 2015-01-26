@@ -96,6 +96,10 @@ def upload_image_to(instance, filename):
 class Image(Content):
     photo = models.ImageField(upload_to=upload_image_to)
 
+class ShopItem(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.IntegerField()
+    description = models.CharField(max_length = 255)
 
 
 class Donation(models.Model):

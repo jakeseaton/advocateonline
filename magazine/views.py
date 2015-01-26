@@ -1,11 +1,12 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
-from .models import Article, Content, Issue , Subscriber# '.' signifies the current directory
+from .models import Article, Content, Issue , Subscriber, ShopItem# '.' signifies the current directory
 from .models import Article, Content, Issue # '.' signifies the current directory
 from collections import OrderedDict
 import json
 import stripe
 from django.conf import settings
+from django.core import serializers
 # Create your views here.
 def index(request):
 	issue = Issue.objects.first()
@@ -24,6 +25,8 @@ def index(request):
 	#template_name = 'index_v1.html',
 	template_name = 'current_issues.html'
 	return render_to_response(template_name, data, context_instance=RequestContext(request))
+
+
 
 def article(request, slug):
 	article = get_object_or_404(Article, slug=slug)
@@ -118,7 +121,14 @@ def alumni(request):
 
 def advertise(request):
 	template_name = 'advertise.html'
+
 	return render_to_response(template_name, context_instance=RequestContext(request))
+
+def shop(request):
+	#shopItems =  serializers.serialize('json',ShopItem.objects.all())
+	shopItems = ShopItem.objects.all()
+	template_name = 'shop.html'
+	return render_to_response(template_name,dictionary = {"items":shopItems},  context_instance=RequestContext(request))
 
 def comp(request):
 	template_name = 'comp.html'
