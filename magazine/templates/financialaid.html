@@ -5,25 +5,40 @@
 <div class="container">
     <h1 class="header">DONATE</h1>
     <p class="text">
-        Thank you for considering your donation to The Harvard Advocate’s <a href="/150th">150th Capital Campaign</a>. Donors will be acknowledged at the following levels in our 150th Anthology. All donors at Muse and above will, pending permission, have their names featured in an original artwork done by an Advocate alum to be displayed in 21 South Street. All Midas donors will additionally receive a lifetime subscription to The Advocate.
+        Thank you for considering your donation to The Harvard Advocate. Donations will be used exclusively to
+        provide financial aid for students to participate in The Harvard Advocate. Donors will be acknowledged at the following levels:
     </p>
     <br><br>
     <p class="centertext">
-        Herodotus $50+
+        Herodotus
+        <br>
+        $50
         <br><br>
-        Odysseus $100+
+        Odysseus
+        <br>
+        $100
         <br><br>
-        Phaedrus $500+
+        Phaedrus
+        <br>
+        $500
         <br><br>
-        Penelope $1000+
+        Penelope
+        <br>
+        $1000
         <br><br>
-        Muse $5,000+
+        Muse*
+        <br>
+        $5,000
         <br><br>
-        Midas $10,000+
+        Midas*
+        <br>
+        $10,000
         <br><br>
     </p>
     <p class="text">
+    Additionally, all donors at Muse and above will receive a lifetime subscription to The Advocate. All Midas donors will, pending permission, have their names featured in an original artwork done by an Advocate alum to be displayed at 21 South Street
     <!-- For a limited time, donors who give $1000 or more will receive a signed issue of the Advocate's Winter TRIAL issue with a cover signed by Dorothea Rockburne, whose design Focus adorns our cover. <br><br>-->
+    <br><br>
 
     All gifts to The Harvard Advocate can be made through The Trustees of The Harvard Advocate, and are fully tax deductible according to 501(c)(3) non-profit donation guidelines. Checks should be made out to "The Trustees of The Harvard Advocate" and sent to 21 South St., Cambridge, MA 02138.
     <br><br>
@@ -31,19 +46,19 @@
     <br><br>
     Thank you for your support!
     <br>
-        
+
     <div style="margin: 40px auto 0px auto; background: #eee; max-width: 400px; padding: 20px;">
-        
+
         <div class="form-container active">
-            <form action="/financialdonation" method="post" id="payment-form"> {% csrf_token %} 
+            <form action="/financialdonation" method="post" id="payment-form"> {% csrf_token %}
                 <h3 class="signup-subheading">Choose Donation Level</h3>
-                <select class="form-control" name="donateType"> 
-                    <option value="No Level">No Donation Level - U.S. $0 USD</option> 
-                    <option value="Herodotus"> Herodotus - U.S. $50 USD</option> 
-                    <option value="Odysseus"> Odysseus - U.S. $100</option> 
-                    <option value="Phaedrus">Phaedrus - U.S. $500 USD</option> 
-                    <option value="Penelope">Penelope - U.S. $1,000 USD</option> 
-                    <option value="Muse">Muse - U.S. $5,000 USD</option> 
+                <select class="form-control" name="donateType">
+                    <option value="No Level">No Donation Level - U.S. $0 USD</option>
+                    <option value="Herodotus"> Herodotus - U.S. $50 USD</option>
+                    <option value="Odysseus"> Odysseus - U.S. $100</option>
+                    <option value="Phaedrus">Phaedrus - U.S. $500 USD</option>
+                    <option value="Penelope">Penelope - U.S. $1,000 USD</option>
+                    <option value="Muse">Muse - U.S. $5,000 USD</option>
                     <option value="Midas">Midas - U.S. $10,000 USD</option>
                 </select>
                 <h3 class="signup-subheading">Or Custom Donation Amount</h3>
@@ -58,7 +73,7 @@
                 <label class="control-label" for "comment">Do you have any comments about this donation?</label>
                 <textarea class="form-control" name="comment" rows="3" placeholder="(Optional)"></textarea>
                 <h3 class="signup-subheading">Who should we thank?</h3>
-                
+
                 {% include 'payment_form.html' %}
 
             </form>
