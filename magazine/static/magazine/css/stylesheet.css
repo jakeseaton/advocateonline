@@ -90,7 +90,7 @@ body{
     font-family: 'futura_std';
     text-align: center;
     font-size: 18px;
-    line-height: 1.5; 
+    line-height: 1.5;
 }
 
 .blog h3 a {
@@ -551,6 +551,7 @@ ul li a:hover{
     text-decoration: none;
     text-shadow: 1.5px 1.5px #F3BB2A;
 }
+
 ul li ul.dropdown{
 	position: absolute;
     display: none;

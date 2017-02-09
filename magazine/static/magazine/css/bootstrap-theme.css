@@ -20,7 +20,7 @@
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #000;
-/*  text-shadow: 1.5px 1.5px #F3BB2A;*/
+  text-shadow: 1.5px 1.5px #F3BB2A;
   background-color: #e7e7e7;
 }
 

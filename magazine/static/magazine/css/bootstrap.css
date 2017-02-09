@@ -350,9 +350,9 @@ img {
   max-width: 100%;
 }
 .container-blog {
-  width: 100%; 
+  width: 100%;
   height: 300px;
-  overflow: hidden; 
+  overflow: hidden;
 }
 .img-blog {
   width: 100%;
@@ -6814,7 +6814,7 @@ td.visible-print {
 
 
 /* dropdown menu */
-    
+
     .dropdown {
         padding: 0;
     }
