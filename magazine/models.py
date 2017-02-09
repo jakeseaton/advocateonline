@@ -1,13 +1,10 @@
 import os
 import datetime
-
 from django.db import models
 from django.db.models import Q
-from django.utils.text import slugify
-from django.utils.encoding import smart_unicode, smart_str
 from tinymce import models as tinymce_models
 from bs4 import BeautifulSoup
-import re
+from common import enum
 
 
 def now():
@@ -15,34 +12,40 @@ def now():
                 datetime.datetime(2014, 1, 1)).total_seconds() * 10 ** 6)
     return unicode(now)
 
+
 # upload issue cover images
 # issue_covers/issue.year/filename.jpg
 def issue_upload_to(instance, filename):
     fname = ''.join([c for c in filename if c.isalnum() or c == '.'])
     return os.path.join('issue_covers', str(instance.year), now() + '_' + fname)
 
+
 # upload artwork and illustrations accompanying articles
 def upload_image_to(instance, filename):
     fname = ''.join([c for c in filename if c.isalnum() or c == '.'])
     print instance.issue.name
     return os.path.join('sites', 'default', 'files', fname)
-    #return os.path.join('images', str(instance.issue.year), str(instance.issue.issue), now() + '_' + fname)
+    # return os.path.join('images', str(instance.issue.year), str(instance.issue.issue), now() + '_' + fname)
+
 
 def get_image_path(instance, filename):
     return os.path.join('static/images/shop/', filename)
+
+
+class IssueType(enum.Enum):
+
+    fall = enum.Item("Fall", "Fall")
+    winter = enum.Item("Winter", "Winter")
+    spring = enum.Item("Spring", "Spring")
+    commencement = enum.Item("Commencement", "Commencement")
+
 
 class Issue(models.Model):
     name = models.CharField(max_length=255, unique=True)
     theme = models.CharField(max_length=255, blank=True, null=True)
     cover_image = models.ImageField(upload_to=issue_upload_to, blank=True, null=True)
 
-    ISSUE_CHOICES = (
-        ('Fall', 'Fall'),
-        ('Winter', 'Winter'),
-        ('Spring', 'Spring'),
-        ('Commencement', 'Commencement'),
-    )
-    issue = models.CharField(max_length=255, choices=ISSUE_CHOICES, default='Fall')
+    issue = models.CharField(max_length=255, choices=IssueType, default=IssueType.fall)
     year = models.IntegerField(blank=True, null=True)
     pub_date = models.DateField()
 
@@ -52,24 +55,27 @@ class Issue(models.Model):
     def get_absolute_url(self):
         return '/issue/{0}-{1}/'.format(self.issue.lower(), self.year)
 
+
 class Section(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     def __unicode__(self):
         return self.name
 
+
 class Contributor(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, unique=True)
 
     def __unicode__(self):
-      return self.name
-    def slug(self):
-      return self.name.replace(" ", "_")
-    def get_absolute_url(self):
-     # Can't use .format because name is not always
-     return '/contributor/' +  str(self.id) + '/' +  self.slug()
-     # return '/contributor/{0}/{1}'.format(self.id, self.slug())
+        return self.name
 
+    def slug(self):
+        return self.name.replace(" ", "_")
+
+    def get_absolute_url(self):
+        # Can't use .format because name is not always
+        return '/contributor/' + str(self.id) + '/' + self.slug()
+        # return '/contributor/{0}/{1}'.format(self.id, self.slug())
 
 
 class Tag(models.Model):
@@ -79,9 +85,11 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class ContentQuerySet(models.query.QuerySet):
     def published(self):
         return self.filter(Q(publishDate__lte=datetime.datetime.now()) | Q(publishDate__isnull=True))
+
 
 class ContentManager(models.Manager):
     def get_queryset(self):
@@ -89,6 +97,7 @@ class ContentManager(models.Manager):
 
     def published(self):
         return self.get_queryset().published()
+
 
 class Content(models.Model):
     objects = ContentManager()
@@ -119,15 +128,19 @@ class Content(models.Model):
         txt = ' '.join(BeautifulSoup(self.teaser).findAll(text=True))
         return txt
 
+
 class Article(Content):
     objects = ContentManager()
     photo = models.ImageField(upload_to=upload_image_to, blank=True, null=True)
+
     def get_absolute_url(self):
         return '/article/{0}/{1}'.format(self.id, self.slug.lower())
+
 
 class Image(Content):
     objects = ContentManager()
     photo = models.ImageField(upload_to=upload_image_to)
+
 
 class Donation(models.Model):
 
@@ -143,21 +156,21 @@ class Donation(models.Model):
     zipCode = models.CharField(max_length=255)
     customerID = models.CharField(max_length=255)
     time = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.name + "  " + self.comment
 
 
+class SubscriptionType(enum.Enum):
+    three_year_us = enum.Item('Three year; US', 'Three year; US')
+    two_year_us = enum.Item('Two year; US', 'Two year; US')
+    one_year_us = enum.Item('One year; US', 'One year; US')
+    three_year_non_us = enum.Item('Three year; non-US', 'Three year; non-US')
+    two_year_non_us = enum.Item('Two year; non-US', 'Two year; non-US')
+    one_year_non_us = enum.Item('One year; non-US', 'One year; non-US')
+
+
 class Subscriber(models.Model):
-
-    SUBSCRIPTION_CHOICES = (
-        ('Three year; US', 'Three year; US'),
-        ('Two year; US', 'Two year; US'),
-        ('One year; US', 'One year; US'),
-        ('Three year; non-US', 'Three year; non-US'),
-        ('Two year; non-US', 'Two year; non-US'),
-        ('One year; non-US', 'One year; non-US')
-    )
-
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     streetAddress1 = models.CharField(max_length=255)
@@ -168,8 +181,9 @@ class Subscriber(models.Model):
     zipCode = models.CharField(max_length=255)
     customerID = models.CharField(max_length=255)
     renew = models.BooleanField(default=False)
-    subscriptionType = models.CharField(max_length=255, choices=SUBSCRIPTION_CHOICES)
+    subscriptionType = models.CharField(max_length=255, choices=SubscriptionType)
     time = models.CharField(max_length=255)
+
 
 class Purchase(models.Model):
 
@@ -177,21 +191,18 @@ class Purchase(models.Model):
     email = models.CharField(max_length=255)
     streetAddress1 = models.CharField(max_length=255)
     streetAddress2 = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)    
-    state = models.CharField(max_length=255)    
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
     zipCode = models.CharField(max_length=255)
-    customerID = models.CharField(max_length=255) 
+    customerID = models.CharField(max_length=255)
     amount = models.IntegerField()
     purchases_json = models.CharField(max_length=255)
     time = models.CharField(max_length=255)
+
 
 class ShopItem(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.ImageField(upload_to=get_image_path, blank=True, null=True)
-
-
-
-
