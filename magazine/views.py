@@ -1,13 +1,11 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponse
-# from .models import Article, Content, Issue , Subscriber# '.' signifies the current directory
-from .models import Article, Content, Image, Issue, Contributor, ShopItem # '.' signifies the current directory
-from .forms import UploadShopItemForm
+from magazine.models import Article, Content, Image, Issue, Contributor, ShopItem
+from magazine.forms import UploadShopItemForm
 from blog.models import Post, Author
 from collections import OrderedDict
 from itertools import chain
-import json
 import stripe
 from django.conf import settings
 import random
@@ -16,7 +14,6 @@ from haystack.query import SearchQuerySet
 from haystack.views import SearchView
 from haystack.forms import SearchForm
 from django.shortcuts import redirect
-from itertools import chain
 import logging
 
 

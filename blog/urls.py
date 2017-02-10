@@ -9,7 +9,6 @@ urlpatterns = patterns('',
 
     url(r'^$', views.main),
     url(r'^(?P<category>archives|writing|art|multimedia)/$', views.main),
-
     url(r'^post/(?P<slug>[a-zA-Z\d_\-]+)/$', views.post),
     # url(r'^theme', 'blog.views.theme'),
     url(r'^tag/(?P<slug>[a-zA-Z\d_\-]+)/$', views.tag_page),
