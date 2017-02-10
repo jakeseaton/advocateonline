@@ -4,7 +4,7 @@
 {% load staticfiles %}
 <div class = "container">
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-  <h1 class="article-title">TAG: {{ author | upper }} </h1>
+  <h1 class="article-title">TAG: {{ tag.name | upper }} </h1>
   {% for post in post.authors.all %}
     <h2 class="article-author">{{ post.name }}</h2>
   {% endfor %}

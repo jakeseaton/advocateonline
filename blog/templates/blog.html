@@ -7,13 +7,13 @@
     <h1 class="header">{{ name }}</h1>
     {% endif %}
     <div class="wrapper blog">
-        {% for post in posts_data %}
+        {% for post in posts %}
 
         <div class="item">
-            
+
             <h3 class="blog-title"><a class="underline" href="{{post.get_absolute_url}}">{{post.title}}</a></h3>
             {% if post.authors.all %}
-                <h4>By 
+                <h4>By
                 {% for author in post.authors.all %}
                     {% if forloop.first %}{% else %}
                         {% if forloop.last %} and {% else %}<span style="margin-left:-5px;">,</span>{% endif %}
@@ -52,7 +52,7 @@
             </span>
         </div>
     </div>
-    
+
     </div>
 
     <div class = "container">
