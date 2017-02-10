@@ -1,18 +1,11 @@
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.template.context import RequestContext
 from .models import Post
-from collections import OrderedDict
-from itertools import chain
-import json
-import stripe
-from django.conf import settings
-import random
-from django.shortcuts import render
 
 from .models import *
 
 BLOG_PATINATION_INTERVAL = 12
+
 
 def main(request, category=None):
     # get the page from the query string,
