@@ -18,10 +18,8 @@ class BlogSearchForm(SearchForm):
         return self.searchqueryset.all()
 
     def search(self):
-        print 'hello'
-        sqs = super(BlogSearchForm, self).search()
 
-        print 'hello'
+        sqs = super(BlogSearchForm, self).search()
 
         if not self.is_valid():
             return self.no_query_found()
