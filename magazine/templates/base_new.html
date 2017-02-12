@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  {% block meta %}
+  <title>The Harvard Advocate</title>
+  <meta name="description" content="Harvard's undergraduate journal of fiction, poetry, art and criticism.">
+  <meta name="author" content="The Harvard Advocate">
+  {% endblock %}
+
+  {% load staticfiles %}
+  <link rel="shortcut icon" href="{% static 'magazine/images/favicon.ico' %}" type="image/x-icon" />
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet"  href="{% static 'magazine/css/bootstrap.css' %}">
+  <link rel="stylesheet"  href="{% static 'magazine/css/redesign.css' %}">
+ <!-- Making Credit Cards look nice -->
+   <!-- <link rel="stylesheet"  href="{% static 'magazine/css/card.css' %}"> -->
+  <!--  Theme -->
+  <!-- <link rel="stylesheet"  href="{% static 'magazine/css/bootstrap-theme.css' %}"> -->
+  <!-- Latest JQuery -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <!-- Making Credit Cards look nice -->
+  <!-- <script src="{% static 'magazine/js/card.js' %}"></script> -->
+  <!-- Advocate Javascript -->
+  <!-- <script src="{% static 'magazine/js/main.js' %}"></script> -->
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <!-- <link rel="stylesheet" href="{% static 'magazine/css/stylesheet.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'magazine/css/current_issue.css' %}"> -->
+
+  <!-- Typeaheadjs -->
+  <!-- <script src="{% static 'magazine/js/typeahead.bundle.min.js' %}"></script> -->
+  <!-- <script src="{% static 'magazine/js/typeahead.jquery.min.js' %}"></script> -->
+  <!-- <script src="{% static 'magazine/js/bloodhound.min.js' %}"></script> -->
+  <!-- <link rel="stylesheet" href="{% static 'magazine/css/search_style.css' %}"></link> -->
+
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row" id="main-nav">
+        <div class="col-md-12 text-center">
+            THE HARVARD ADVOCATE
+        </div>
+
+        <div class="col-md-12 text-center">
+            <ul class="nav nav-pills nav-justified">
+                <li>Art</li>
+                <li>Fiction</li>
+                <li>Features</li>
+                <li>Poetry</li>
+                <li>Columns</li>
+                <li>Blog</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" id="banner" style="background-image: url('{% static "magazine/images/comm_crop.jpeg" %}')">
+    </div>
+</div>
+</body>
+</html>
+

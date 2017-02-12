@@ -8,11 +8,13 @@ from rest_framework import routers, serializers, viewsets
 
 from magazine import views
 
+from django.views.generic import TemplateView
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', views.index),
+    url(r'^home/$', TemplateView.as_view(template_name="base_new.html")),
     url(r'^issues$', views.issues),
     url(r'^about$', views.masthead),
     url(r'^issue/(?P<season>[a-zA-Z]+)-(?P<year>[\d]{4})/$', views.singleissue),
